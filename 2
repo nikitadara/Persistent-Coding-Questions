@@ -1,0 +1,52 @@
+Create the username portal of a registration system that requires all username are unique. If a new user requests a name that is already registered, an integer should be added to the end of the username to make it unique. The number begins with 1 and is incremented by 1 for each new instance per username.
+
+As an example if username requests were for {bob, alice, bob, alice,bob, alice}, the system should assign usernames {bob, alice,bob1, alice1,bob2, alice2}.
+
+Given a list of usernames requests in the order given, process all requests and return an array of usernames as assigned by the function
+
+Function Description
+
+Write a function usernameSystem, that must return an array of usernames in the order assigned
+usernameSystem hgas the following parameters
+
+u{u(0),u(1)……u(n-1)}, an array of username strings in the order requested
+Constraints
+
+1<= n <= 104
+1 <= u[i] <= 20
+U[i] contains only lowercase ascii characters in the range [a-z].
+Example:
+
+Input
+alex
+xylos
+alex
+alan
+Output
+alex
+xylos
+alex1
+alan
+
+
+Code:
+import collections,re
+class Personname:
+   def clean(self,user_names):
+      count_map = collections.defaultdict(int)
+      for i in range(len(user_names)):
+         name = user_names[i]
+         name = re.sub(r'[0-9]+$', '',name)
+         count = count_map[name]
+         if count != 0:
+            user_names[i] = name + str(count)
+         count_map[name] += 1
+
+u = Personname()
+arr =[ 'bob', 'alice', 'bob', 'alice','bob', 'alice']
+u.clean(arr)
+print(arr)
+
+
+Output:
+['bob', 'alice', 'bob1', 'alice1', 'bob2', 'alice2']
